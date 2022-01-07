@@ -40,7 +40,7 @@ class Booking(models.Model):
   state = models.TextField(max_length=3, choices=STATES)
   payment_method = models.TextField(max_length=4, choices=PAYMENT_METHOD)
 
-class Invoce(models.Model):
+class Invoice(models.Model):
   date = models.DateTimeField(auto_now_add=True)
   amount = models.DecimalField(max_digits=10, decimal_places=2)
   name = models.TextField(max_length=50)
