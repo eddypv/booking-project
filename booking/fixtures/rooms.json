@@ -1,0 +1,41 @@
+[
+    {
+      "model": "booking.Room",
+      "pk": "1",
+      "fields": {
+        "title": "Habitacion Individual",
+        "description": "Esta habitación individual dispone de aire acondicionado, minibar y zona de estar.",
+        "guests":1,
+        "beds":1,
+        "toilets":1,
+        "cost_per_night":30,
+        "facilities":["balcon", "minibar", "aire-acon", "bano-n"]
+      }
+    },
+    {
+      "model": "booking.Room",
+      "pk": "2",
+      "fields": {
+        "title": "Habitación Doble - 2 camas dobles",
+        "description": "Habitación con 2 camas individuales, minibar, aire acondicionado y zona de estar.",
+        "guests":2,
+        "beds":2,
+        "toilets":2,
+        "cost_per_night":60,
+        "facilities":["balcon", "minibar", "aire-acon", "tv-plana", "bano-n"]
+      }
+    },
+    {
+      "model": "booking.Room",
+      "pk": "3",
+      "fields": {
+        "title": "Habitación Doble Superior - 2 camas dobles",
+        "description": "Esta habitación doble cuenta con calefacción, aire acondicionado, soporte para iPod, baño privado y ventanas insonorizadas.",
+        "guests":2,
+        "beds":2,
+        "toilets":2,
+        "cost_per_night":80,
+        "facilities":["balcon", "minibar", "aire-acon", "tv-plana", "cafet", "bano-s"]
+      }
+    }
+]

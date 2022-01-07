@@ -5,4 +5,5 @@ SECRET_KET = Una cadena ramdom
 3. Ejecutar la migracion para crear los modelos: python manage.py migrate
 4. Cargar los datos iniciales:
     python manage.py loaddata room_facility.json
+    python manage.py loaddata rooms.json
 
