@@ -1,0 +1,52 @@
+[
+  {
+    "model": "booking.RoomFacility",
+    "pk": "balcon",
+    "fields": {
+      "facility": "Balcon"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "minibar",
+    "fields": {
+      "facility": "Minibar"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "bano-n",
+    "fields": {
+      "facility": "Baño Normal"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "bano-s",
+    "fields": {
+      "facility": "Baño Suite"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "aire-acon",
+    "fields": {
+      "facility": "Aire acondicionado"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "tv-plana",
+    "fields": {
+      "facility": "TV de pantalla plana"
+    }
+  },
+  {
+    "model": "booking.RoomFacility",
+    "pk": "cafet",
+    "fields": {
+      "facility": "Cafetera"
+    }
+  }
+
+]

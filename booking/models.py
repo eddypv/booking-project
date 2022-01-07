@@ -14,8 +14,8 @@ class Room(models.Model):
   description = models.CharField(max_length=1000)
   guests = models.PositiveSmallIntegerField() # cantidad huspedes
   beds = models.PositiveSmallIntegerField() #cantidad camas
-  toilets = models.PositiveSmallIntegerField() #cantidad camas
-  facilities = models.ManyToManyField(RoomFacility) 
+  toilets = models.PositiveSmallIntegerField() #cantidad baños
+  facilities = models.ManyToManyField(RoomFacility)  #instalaciones en la habitacion
 
     
 
