@@ -16,6 +16,7 @@ class Room(models.Model):
   beds = models.PositiveSmallIntegerField() #cantidad camas
   toilets = models.PositiveSmallIntegerField() #cantidad baños
   facilities = models.ManyToManyField(RoomFacility)  #instalaciones en la habitacion
+  cost_per_night = models.DecimalField(max_digits=10, decimal_places=2)
 
     
 
