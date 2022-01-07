@@ -8,6 +8,7 @@ def hello_word(request):
 
 @api_view(['GET'])
 def search_rooms(request, start_date, end_date, guests):
-    query =Room.objects.all()
-    serializer = RoomSerializer(query, many=True)
+    
+    queryset =Room.get_rooms_booking(start_date, end_date, guests)
+    serializer = RoomSerializer(queryset, many=True)
     return Response(serializer.data )

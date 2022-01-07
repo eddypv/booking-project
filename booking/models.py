@@ -19,6 +19,19 @@ class Room(models.Model):
   toilets = models.PositiveSmallIntegerField() #cantidad baños
   facilities = models.ManyToManyField(RoomFacility)  #instalaciones en la habitacion
   cost_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+  
+  @staticmethod
+  def get_rooms_booking(start_date, end_date, guests):
+    sentence = """select * 
+                from booking_room room 
+                where room.guests =%s and not room.id in (
+                        select booking.room_id 
+                        from booking_booking booking   
+                        where (booking.start_date<='%s'  and  booking.end_date>='%s') or 
+                        (booking.start_date<='%s'  and  booking.end_date>='%s'))""" %(guests, start_date, start_date, end_date, end_date)
+    
+    return Room.objects.raw(sentence)
+
 
 class Booking(models.Model): 
   STATES = (
