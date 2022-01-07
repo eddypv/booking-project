@@ -20,6 +20,33 @@ class Room(models.Model):
   facilities = models.ManyToManyField(RoomFacility)  #instalaciones en la habitacion
   cost_per_night = models.DecimalField(max_digits=10, decimal_places=2)
 
+class Booking(models.Model): 
+  STATES = (
+    ('PEN', 'Pendiente'),
+    ('PAG', 'Pagado'),
+    ('ELI', 'Eliminado'),
+  )
+  PAYMENT_METHOD = (
+    ('EFEC', 'Pago en Efectivo'),
+    ('TAR', 'Pago con Tarjeta de Crédito o Débito'),
+    ('PAYP', 'Pago por Paypal'),
+  )
+  date = models.DateTimeField(auto_now_add=True)
+  start_date = models.DateField()
+  end_date = models.DateField()
+  guests = models.PositiveSmallIntegerField()
+  room = models.ForeignKey(Room, on_delete=models.PROTECT)
+  amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+  state = models.TextField(max_length=3, choices=STATES)
+  payment_method = models.TextField(max_length=4, choices=PAYMENT_METHOD)
+
+class Invoce(models.Model):
+  date = models.DateTimeField(auto_now_add=True)
+  amount = models.DecimalField(max_digits=10, decimal_places=2)
+  name = models.TextField(max_length=50)
+  nit = models.TextField(max_length=30)
+  booking = models.ForeignKey(Booking, on_delete=models.PROTECT)
+
     
 
 
