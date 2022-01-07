@@ -1,2 +1,3 @@
 db.booking
 booking_project/.env
+__pycache__
