@@ -17,8 +17,9 @@ La autenticacion es con Json Web Token utilizando el sistema de usuario de Djang
 ## Servicios
 ### Inicio de Sesion
 Tiene que ser un usuario de Django.
+
+**POST** http://127.0.0.1:8000/api/token/
 ```http
-POST http://127.0.0.1:8000/api/token/
 content-type: application/json
 
 {
