@@ -2,3 +2,17 @@
 ### obtener reserva
 GET http://127.0.0.1:8000/api/booking/541/
 content-type: application/json
+
+### crear reserva
+POST http://127.0.0.1:8000/api/booking/
+content-type: application/json
+
+{
+    "start_date":"01-01-2022",
+    "end_date":"30-01-2022",
+    "guests":1,
+    "room_id":1,
+    "amount_paid":0,
+    "state":"PEN",
+    "payment_method":"E"
+}

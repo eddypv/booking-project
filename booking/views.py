@@ -38,6 +38,22 @@ def get_booking(request, booking_id):
     except ObjectDoesNotExist:
         response["error"] = { "message":"No existe la reserva" }
         return Response(response,404)
+        
+@api_view(["POST"])
+def register_booking(request):
+    response = {"data":None, "error":None}
+    booking_serializer = BookingSerializer(data=request.data)
+    
+    if(booking_serializer.is_valid()):
+        booking_serializer.save()
+        response["data"] = booking_serializer.data
+        return Response(response)
+    else:
+        response["error"] = {
+            "message":"No se pudo registrar", 
+            "detail":booking_serializer.errors
+        }
+        return Response(data=response,status=400)
 
 @api_view(["GET"])
 def get_invoice(request, invoice_id):
