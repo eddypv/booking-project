@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.base import Model
 from django.utils.translation import override
+from django.contrib.auth.models import User
 
 class RoomService(models.Model):
   cod_service = models.CharField(max_length=20, primary_key=True)
@@ -52,6 +53,7 @@ class Booking(models.Model):
   amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
   state = models.TextField(max_length=3, choices=STATES)
   payment_method = models.TextField(max_length=4, choices=PAYMENT_METHOD)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 class Invoice(models.Model):
   date = models.DateTimeField(auto_now_add=True)
@@ -59,6 +61,7 @@ class Invoice(models.Model):
   name = models.TextField(max_length=50)
   nit = models.TextField(max_length=30)
   booking = models.ForeignKey(Booking, on_delete=models.PROTECT)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     
 

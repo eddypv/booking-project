@@ -67,6 +67,7 @@ def register_booking(request):
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def get_invoice(request, invoice_id):
+    print(request.user)
     response = {"data":None, "error":None}
     try: 
         invoice = Invoice.objects.get(pk=invoice_id)
