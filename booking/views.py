@@ -5,13 +5,21 @@ from booking.serializers import BookingSerializer, RoomSerializer, InvoiceSerial
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from booking.utils import get_date
 
 @api_view(['GET'])
 def search_rooms(request, start_date, end_date, guests):
-    
+    response = {"data":None, "error":None}
+    start_date = get_date(start_date, '%d-%m-%Y')
+    end_date = get_date(end_date, '%d-%m-%Y')
+
+    if(start_date is None or end_date is None) :
+        response["error" ] = {"message":"El formato de las fechas debe ser dd-mm-yyyy"}
+        return Response(response, status=400)
     queryset =Room.get_rooms_booking(start_date, end_date, guests)
     serializer = RoomSerializer(queryset, many=True)
-    return Response(serializer.data )
+    response["data"] = serializer.data
+    return Response(response)
 
 @api_view(["POST"])
 @authentication_classes([JWTAuthentication])
