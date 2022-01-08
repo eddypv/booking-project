@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from booking.models import Invoice, Room
-from booking.serializers import RoomSerializer, InvoiceSerializer
+from booking.models import Booking, Invoice, Room
+from booking.serializers import BookingSerializer, RoomSerializer, InvoiceSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['GET'])
@@ -26,6 +26,18 @@ def register_invoice(request):
             "detail":invoice_serializer.errors
         }
         return Response(data=response,status=400)
+
+@api_view(["GET"])
+def get_booking(request, booking_id):
+    response= {"data":None, "error":None}
+    try: 
+        booking = Booking.objects.get(pk=booking_id)
+        booking_serializer = BookingSerializer(booking)
+        response["data"] = booking_serializer.data
+        return Response(response)
+    except ObjectDoesNotExist:
+        response["error"] = { "message":"No existe la reserva" }
+        return Response(response,404)
 
 @api_view(["GET"])
 def get_invoice(request, invoice_id):

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from booking.models import Booking, Invoice 
 
 class RoomFacilitySerializer(serializers.BaseSerializer):
@@ -58,4 +57,40 @@ class InvoiceSerializer(serializers.BaseSerializer):
     def create(self, validated_data):
         return Invoice.objects.create(**validated_data)
 
+class BookingSerializer(serializers.BaseSerializer):
+
+    def to_internal_value(self, data):
+        start_date = data.get("start_date")
+        end_date = data.get("end_date")
+        guests = data.get("guests")
+        room_id = data.get("room_id")
+        amount_paid = data.get("amount_paid")
+        state = data.get("state")
+        payment_method = data.get("payment_method")
         
+        return {
+            "start_date":start_date,
+            "end_date": end_date,
+            "guests":guests,
+            "room_id": room_id,
+            "amount_paid":amount_paid, 
+            "state" : state,
+            "payment_method" :payment_method
+        }
+    
+    def to_representation(self, instance):
+        return {
+            "start_date":instance.start_date,
+            "end_date": instance.end_date,
+            "guests":instance.guests,
+            "room_id": instance.room.id,
+            "amount_paid":instance.amount_paid, 
+            "state" : {
+                "code":instance.state,
+                "state":instance.get_state_display()
+            },
+            "payment_method":{
+                "code":instance.payment_method,
+                "payment_method":instance.get_payment_method_display()
+            }
+        }
