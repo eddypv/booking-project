@@ -1,9 +1,30 @@
-# Instalacion
-1. Ejecutar el comando: pip install -r requirements.txt 
-2. Crear el archivo .env en la carpeta booking_project con el siguiente contenido:
-SECRET_KET = Una cadena ramdom
-3. Ejecutar la migracion para crear los modelos: python manage.py migrate
-4. Cargar los datos iniciales:
-    python manage.py loaddata room_facility.json
-    python manage.py loaddata rooms.json
+## Instalacion
+- Crear el archivo .env en la carpeta booking_project con el siguiente contenido:
+
+SECRET_KET = Una cadena secreta 
+
+- Ejecutar el comando: 
+```sh
+pip install -r requirements.txt 
+python manage.py migrate
+python manage.py loaddata room_facility.json
+python manage.py loaddata rooms.json
+```
+## Documentacion
+### Autenticacion
+La autenticacion es con Json Web Token utilizando el sistema de usuario de Django.
+
+## Servicios
+### Inicio de Sesion
+Tiene que ser un usuario de Django.
+```json
+POST http://127.0.0.1:8000/api/token/
+content-type: application/json
+
+{
+   "username":"",
+   "password":""
+}
+```
+
 
