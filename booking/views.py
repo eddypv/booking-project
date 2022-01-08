@@ -18,6 +18,8 @@ def search_rooms(request, start_date, end_date, guests):
 @permission_classes([IsAuthenticated])
 def register_invoice(request):
     response = {"data":None, "error":None}
+    data = request.data
+    data["user"] = request.user
     invoice_serializer = InvoiceSerializer(data=request.data)
     
     if(invoice_serializer.is_valid()):
@@ -50,6 +52,8 @@ def get_booking(request, booking_id):
 @permission_classes([IsAuthenticated])
 def register_booking(request):
     response = {"data":None, "error":None}
+    data = request.data
+    data["user"] = request.user
     booking_serializer = BookingSerializer(data=request.data)
     
     if(booking_serializer.is_valid()):
@@ -67,7 +71,7 @@ def register_booking(request):
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def get_invoice(request, invoice_id):
-    print(request.user)
+    
     response = {"data":None, "error":None}
     try: 
         invoice = Invoice.objects.get(pk=invoice_id)

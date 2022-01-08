@@ -31,7 +31,7 @@ class InvoiceSerializer(serializers.BaseSerializer):
         name = data.get("name")
         nit = data.get("nit")
         booking_id= data.get("booking_id")
-
+        user = data.get("user")
         #validar si ya se pago la reserva
         if(Invoice.objects.filter(booking__id=booking_id).exists()):
             raise serializers.ValidationError({
@@ -41,7 +41,8 @@ class InvoiceSerializer(serializers.BaseSerializer):
             "amount":amount,
             "name":name,
             "nit":nit,
-            "booking_id":booking_id
+            "booking_id":booking_id, 
+            "user":user
         }
     # JSON
     def to_representation(self, instance):
@@ -67,7 +68,7 @@ class BookingSerializer(serializers.BaseSerializer):
         amount_paid = data.get("amount_paid")
         state = data.get("state")
         payment_method = data.get("payment_method")
-        
+        user = data.get("user")
         return {
             "start_date":start_date,
             "end_date": end_date,
@@ -75,7 +76,8 @@ class BookingSerializer(serializers.BaseSerializer):
             "room_id": room_id,
             "amount_paid":amount_paid, 
             "state" : state,
-            "payment_method" :payment_method
+            "payment_method" :payment_method,
+            "user":user
         }
     
     def to_representation(self, instance):
