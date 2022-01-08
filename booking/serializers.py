@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from booking.models import Booking, Invoice 
+from booking.models import Booking, Invoice, Room 
 from datetime import datetime
 from booking.utils import get_date 
 
@@ -125,6 +125,10 @@ class BookingSerializer(serializers.BaseSerializer):
         if(payment_method is None or not payment_method in [Booking.PAYMENT_METHOD_PAYPAL, Booking.PAYMENT_METHOD_TARJETA, Booking.PAYMENT_METHOD_EFECTIVO] ):
             raise serializers.ValidationError({
                 'payment_method': 'El metodo de pago es requerido o los metodos de pago validos:%s, %s y %s' %(Booking.PAYMENT_METHOD_PAYPAL, Booking.PAYMENT_METHOD_TARJETA, Booking.PAYMENT_METHOD_EFECTIVO)
+            })
+        if(not Room.objects.filter(id=room_id).exists()):
+            raise serializers.ValidationError({
+                'room_id': 'No existe la habitacion'
             })
 
         return {
