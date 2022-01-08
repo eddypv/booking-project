@@ -34,6 +34,29 @@ class InvoiceSerializer(serializers.BaseSerializer):
         nit = data.get("nit")
         booking_id= data.get("booking_id")
         user = data.get("user")
+        
+        if(amount is None ):
+            raise serializers.ValidationError({
+                'amount': 'El monto es requerido o mayor a cero'
+            })
+        
+        if(name is None or name == "" ):
+            raise serializers.ValidationError({
+                'name': 'El nombre es requerido'
+            })
+        if(nit is None or nit == "" ):
+            raise serializers.ValidationError({
+                'nit': 'El nit es requerido'
+            })
+        
+        if(booking_id is None  ):
+            raise serializers.ValidationError({
+                'booking_id': 'La habitacion es requerido'
+            })
+        if(not Booking.objects.filter(id=booking_id).exists()):
+            raise serializers.ValidationError({
+                'booking_id': 'No existe la reserva'
+            })
         #validar si ya se pago la reserva
         if(Invoice.objects.filter(booking__id=booking_id).exists()):
             raise serializers.ValidationError({
