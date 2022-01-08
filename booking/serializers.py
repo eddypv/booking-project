@@ -24,6 +24,7 @@ class RoomSerializer(serializers.BaseSerializer):
             "cost_per_night" :instance.cost_per_night,
             "facilities":serializer_facilities.data
         }
+
 class InvoiceSerializer(serializers.BaseSerializer):
     #retornar informacion valida
     def to_internal_value(self, data):
@@ -31,6 +32,12 @@ class InvoiceSerializer(serializers.BaseSerializer):
         name = data.get("name")
         nit = data.get("nit")
         booking_id= data.get("booking_id")
+
+        #validar si ya se pago la reserva
+        if(Invoice.objects.filter(booking__id=booking_id).exists()):
+            raise serializers.ValidationError({
+                'booking_id': 'Ya se realizo el pago de esta reserva'
+            })
         return {
             "amount":amount,
             "name":name,
@@ -40,11 +47,14 @@ class InvoiceSerializer(serializers.BaseSerializer):
     # JSON
     def to_representation(self, instance):
         return {
+            "id":instance.id,
+            "date": instance.date,
             "amount":instance.amount,
             "name":instance.name,
             "nit":instance.nit,
             "booking_id":instance.booking.id
         }
+    
     def create(self, validated_data):
         return Invoice.objects.create(**validated_data)
 

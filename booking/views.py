@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from booking.models import Room
-from booking.serializers import RoomSerializer
+from booking.serializers import RoomSerializer, InvoiceSerializer
 
 @api_view(['GET']) 
 def hello_word(request):
@@ -16,5 +16,13 @@ def search_rooms(request, start_date, end_date, guests):
 
 @api_view(["POST"])
 def register_invoice(request):
-    data = request.data 
-    return Response(data)
+    response = {"data":None, "error":None}
+    invoice_serializer = InvoiceSerializer(data=request.data)
+    
+    if(invoice_serializer.is_valid()):
+        invoice_serializer.save()
+        response["data"] = invoice_serializer.data
+        return Response(response)
+    else:
+        response["error"] = invoice_serializer.errors
+        return Response(data=response,status=401)
