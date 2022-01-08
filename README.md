@@ -30,7 +30,7 @@ content-type: application/json
 ### Buscar habitaciones
 Realizar busqueda de habitaciones disponibles de acuerdo a un rango de fechas y cantidad de personas que se hospedaran. El formato de fecha es dd-mm-yyyy
 
-**GET** http://127.0.0.1:8000/api/booking/search_rooms/start_date/end_date/guests
+**GET** http://127.0.0.1:8000/api/booking/search_rooms/?start_date/?end_date/?guests
 
 Respuesta:
 
@@ -107,5 +107,12 @@ content-type: application/json
     "booking_id":2 // identificador de Reserva
 }
 ```
+### Obtener reserva 
+**GET** http://127.0.0.1:8000/api/booking/?booking_id/
 
+### Obtener reserva 
+**GET** http://127.0.0.1:8000/api/invoice/?invoice_id/
+
+
+En la carpeta **examples** existen ejemplo de como invocar los servicios rest
 

@@ -4,5 +4,4 @@ __pycache__
 *.log
 *.pot
 *.pyc
-*.rest
-rest/
+rest/*.rest

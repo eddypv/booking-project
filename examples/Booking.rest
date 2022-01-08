@@ -1,0 +1,25 @@
+
+
+### obtener habitaciones
+GET http://127.0.0.1:8000/api/booking/search_rooms/03-01-2021/05-01-2021/1
+content-type: application/json
+
+### obtener reserva
+GET http://127.0.0.1:8000/api/booking/2/
+Authorization: Bearer 
+content-type: application/json
+
+### crear reserva
+POST http://127.0.0.1:8000/api/booking/
+Authorization: Bearer 
+content-type: application/json
+
+{
+    "start_date":"01-01-2022",
+    "end_date":"30-01-2022",
+    "guests":1,
+    "room_id":2,
+    "amount_paid":0,
+    "state":"PEN",
+    "payment_method":"EFEC"
+}

@@ -1,0 +1,16 @@
+## registrar factura
+POST http://127.0.0.1:8000/api/invoice/
+Authorization: Bearer 
+content-type: application/json
+
+{
+    "amount":154.23,
+    "name":"Juan Perez",
+    "nit":"1545454",
+    "booking_id":2
+}
+
+### obtener factura
+GET http://127.0.0.1:8000/api/invoice/1/
+Authorization: Bearer 
+content-type: application/json
