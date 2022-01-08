@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from booking.models import Booking, Invoice 
 from datetime import datetime
+from booking.utils import get_date 
+
 class RoomFacilitySerializer(serializers.BaseSerializer):
     def to_representation(self,instance):
         return{
@@ -61,14 +63,47 @@ class InvoiceSerializer(serializers.BaseSerializer):
 class BookingSerializer(serializers.BaseSerializer):
 
     def to_internal_value(self, data):
-        start_date = datetime.strptime(data.get("start_date"), '%d-%m-%Y')
-        end_date = datetime.strptime(data.get("end_date"), '%d-%m-%Y')
+        start_date = get_date(data.get("start_date"), '%d-%m-%Y')
+        end_date = get_date(data.get("end_date"), '%d-%m-%Y')
         guests = data.get("guests")
         room_id = data.get("room_id")
         amount_paid = data.get("amount_paid")
         state = data.get("state")
         payment_method = data.get("payment_method")
         user = data.get("user")
+        if(start_date is None):
+            raise serializers.ValidationError({
+                'start_date': 'El formato de la fecha de inicio debe ser dd-mm-yyyy'
+            })
+        
+        if(end_date is None):
+            raise serializers.ValidationError({
+                'end_date': 'El formato de la fecha de fin debe ser dd-mm-yyyy'
+            })
+        
+        if(room_id is None):
+            raise serializers.ValidationError({
+                'room_id': 'La habitacion es requerida'
+            })
+        if(guests is None):
+            raise serializers.ValidationError({
+                'guests': 'El nro de huspedes es requerido'
+            })
+        if(amount_paid is None):
+            raise serializers.ValidationError({
+                'amount_paid': 'El monto pagado es requerido'
+            })
+        
+        if(state is None or not state in [Booking.STATE_PENDIENTE,Booking.STATE_PAGADO]):
+            raise serializers.ValidationError({
+                'state': 'El estado es requerido o los estados validos son %s y %s ' % (Booking.STATE_PENDIENTE,Booking.STATE_PAGADO)
+            })
+        
+        if(payment_method is None or not payment_method in [Booking.PAYMENT_METHOD_PAYPAL, Booking.PAYMENT_METHOD_TARJETA, Booking.PAYMENT_METHOD_EFECTIVO] ):
+            raise serializers.ValidationError({
+                'payment_method': 'El metodo de pago es requerido o los metodos de pago validos:%s, %s y %s' %(Booking.PAYMENT_METHOD_PAYPAL, Booking.PAYMENT_METHOD_TARJETA, Booking.PAYMENT_METHOD_EFECTIVO)
+            })
+
         return {
             "start_date":start_date,
             "end_date": end_date,

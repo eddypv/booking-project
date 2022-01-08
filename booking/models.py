@@ -35,15 +35,21 @@ class Room(models.Model):
 
 
 class Booking(models.Model): 
+  STATE_PENDIENTE = 'PEN'
+  STATE_PAGADO = 'PAG'
+  STATE_ELIMINADO = 'ELI'
   STATES = (
-    ('PEN', 'Pendiente'),
-    ('PAG', 'Pagado'),
-    ('ELI', 'Eliminado'),
+    (STATE_PENDIENTE, 'Pendiente'),
+    (STATE_PAGADO, 'Pagado'),
+    (STATE_ELIMINADO, 'Eliminado'),
   )
+  PAYMENT_METHOD_EFECTIVO = 'EFEC'
+  PAYMENT_METHOD_TARJETA = 'TAR'
+  PAYMENT_METHOD_PAYPAL = 'PAYP'
   PAYMENT_METHOD = (
-    ('EFEC', 'Pago en Efectivo'),
-    ('TAR', 'Pago con Tarjeta de Crédito o Débito'),
-    ('PAYP', 'Pago por Paypal'),
+    (PAYMENT_METHOD_EFECTIVO, 'Pago en Efectivo'),
+    (PAYMENT_METHOD_TARJETA, 'Pago con Tarjeta de Crédito o Débito'),
+    (PAYMENT_METHOD_PAYPAL, 'Pago por Paypal'),
   )
   date = models.DateTimeField(auto_now_add=True)
   start_date = models.DateField()

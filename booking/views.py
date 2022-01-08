@@ -16,6 +16,7 @@ def search_rooms(request, start_date, end_date, guests):
     if(start_date is None or end_date is None) :
         response["error" ] = {"message":"El formato de las fechas debe ser dd-mm-yyyy"}
         return Response(response, status=400)
+    
     queryset =Room.get_rooms_booking(start_date, end_date, guests)
     serializer = RoomSerializer(queryset, many=True)
     response["data"] = serializer.data
