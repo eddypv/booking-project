@@ -1,11 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from booking.models import Room
+from booking.models import Invoice, Room
 from booking.serializers import RoomSerializer, InvoiceSerializer
-
-@api_view(['GET']) 
-def hello_word(request):
-    return Response({"message":"hello"})
+from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['GET'])
 def search_rooms(request, start_date, end_date, guests):
@@ -24,5 +21,20 @@ def register_invoice(request):
         response["data"] = invoice_serializer.data
         return Response(response)
     else:
-        response["error"] = invoice_serializer.errors
-        return Response(data=response,status=401)
+        response["error"] = {
+            "message":"No se pudo registrar", 
+            "detail":invoice_serializer.errors
+        }
+        return Response(data=response,status=400)
+
+@api_view(["GET"])
+def get_invoice(request, invoice_id):
+    response = {"data":None, "error":None}
+    try: 
+        invoice = Invoice.objects.get(pk=invoice_id)
+        invoice_serializer = InvoiceSerializer(invoice)
+        response["data"] = invoice_serializer.data
+        return Response(response)
+    except ObjectDoesNotExist:
+        response["error"] = { "message":"No existe la factura" }
+        return Response(response,404)
