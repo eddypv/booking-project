@@ -11,4 +11,5 @@ content-type: application/json
 
 ### obtener factura
 GET http://127.0.0.1:8000/api/invoice/5/
+Authorization: Beaer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQxNjY0NDI2LCJpYXQiOjE2NDE2NjQxMjYsImp0aSI6ImIzNjFjZjk4MTgyZDQzMWViZjRmYTE4YzVmYTUxYzNmIiwidXNlcl9pZCI6MX0.X2bZfcWhhQZO9ehu-n-fdKvzDP7aX9MZ8zCmhdqUYpk
 content-type: application/json

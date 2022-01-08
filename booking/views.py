@@ -1,8 +1,10 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from booking.models import Booking, Invoice, Room
 from booking.serializers import BookingSerializer, RoomSerializer, InvoiceSerializer
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 def search_rooms(request, start_date, end_date, guests):
@@ -12,6 +14,8 @@ def search_rooms(request, start_date, end_date, guests):
     return Response(serializer.data )
 
 @api_view(["POST"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def register_invoice(request):
     response = {"data":None, "error":None}
     invoice_serializer = InvoiceSerializer(data=request.data)
@@ -28,6 +32,8 @@ def register_invoice(request):
         return Response(data=response,status=400)
 
 @api_view(["GET"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def get_booking(request, booking_id):
     response= {"data":None, "error":None}
     try: 
@@ -40,6 +46,8 @@ def get_booking(request, booking_id):
         return Response(response,404)
         
 @api_view(["POST"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def register_booking(request):
     response = {"data":None, "error":None}
     booking_serializer = BookingSerializer(data=request.data)
@@ -56,6 +64,8 @@ def register_booking(request):
         return Response(data=response,status=400)
 
 @api_view(["GET"])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def get_invoice(request, invoice_id):
     response = {"data":None, "error":None}
     try: 
